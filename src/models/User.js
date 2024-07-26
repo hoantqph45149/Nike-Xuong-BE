@@ -2,7 +2,7 @@ import mogoose from "mongoose";
 
 const userSchema = new mogoose.Schema(
   {
-    usename: {
+    username: {
       type: String,
       required: true,
       minLength: 3,
@@ -16,6 +16,10 @@ const userSchema = new mogoose.Schema(
       type: String,
       required: true,
       minLength: 6,
+    },
+    avatar: {
+      type: String,
+      default: "https://www.gravatar.com/avatar/?d=mp",
     },
     role: {
       type: String,

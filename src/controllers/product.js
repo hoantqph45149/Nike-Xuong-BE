@@ -36,11 +36,14 @@ export const getOne = async (req, res, next) => {
       "categoryId"
     );
     if (!product) {
-      return res.status(200).json({
-        message: "Tìm thấy sản phẩm",
-        data: product,
+      return res.status(404).json({
+        message: "Không tìm thấy sản phẩm",
       });
     }
+    return res.status(200).json({
+      message: "Tìm thấy sản phẩm",
+      data: product,
+    });
   } catch (error) {
     next(error);
   }

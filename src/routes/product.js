@@ -22,7 +22,7 @@ routerProduct.post(
   checkPermission,
   create
 );
-routerProduct.put(
+routerProduct.patch(
   "/:id",
   validBodyRequest(productValidation),
   checkPermission,

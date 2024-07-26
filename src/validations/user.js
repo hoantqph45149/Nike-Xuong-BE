@@ -1,6 +1,6 @@
 import joi from "joi";
 export const signUpValidation = joi.object({
-  usename: joi.string().required().min(6).messages({
+  username: joi.string().required().min(6).messages({
     "string.empty": "Vui lòng điền đầy đủ tên đăng nhập",
     "any.required": "Tên đăng nhập là trường bắt buộc",
     "string.min": " Tên đăng nhập phải tối thiểu (#litmit) ký tự ",
