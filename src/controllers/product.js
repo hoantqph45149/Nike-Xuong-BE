@@ -4,27 +4,17 @@ import { productValidation } from "../validations/product.js";
 
 export const getList = async (req, res, next) => {
   try {
-    const {
-      _page = 1,
-      _limit = 10,
-      _sort = "createAt",
-      _order = "asc",
-    } = req.query;
-    const options = {
-      page: _page,
-      limit: _limit,
-      sort: {
-        [_sort]: _order === "asc" ? 1 : -1,
-      },
-    };
-    const data = await Products.paginate({}, options);
-    console.log(data);
-    if (data) {
-      return res.status(200).json({
-        message: "Tìm thấy sản phẩm",
-        data,
+    const data = await Products.find().populate("categoryId");
+    if (!data || data.length === 0) {
+      return res.status(400).json({
+        message: "Khong tim thay san pham nao!",
       });
     }
+
+    return res.status(200).json({
+      message: "Lay san pham thanh cong!",
+      data,
+    });
   } catch (error) {
     next(error);
   }
