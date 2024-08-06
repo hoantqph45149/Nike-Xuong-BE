@@ -1,6 +1,5 @@
 import Category from "../models/Category.js";
 import Products from "../models/Product.js";
-import { productValidation } from "../validations/product.js";
 
 export const getList = async (req, res, next) => {
   try {

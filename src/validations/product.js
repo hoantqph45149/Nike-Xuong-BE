@@ -19,6 +19,9 @@ export const productValidation = Joi.object({
   thumbnail: Joi.string().messages({
     "string.base": "thumbnail là kiểu string",
   }),
+  sizes: Joi.array().messages({
+    "array.base": "sizes là kiểu array",
+  }),
   categoryId: Joi.string().required().messages({
     "string.empty": "Vui lòng nhập loai sản phẩm",
   }),

@@ -20,6 +20,18 @@ const productSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    sizes: [
+      {
+        size: {
+          type: String,
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
     categoryId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
