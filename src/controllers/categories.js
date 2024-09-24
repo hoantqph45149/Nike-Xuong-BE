@@ -110,3 +110,36 @@ export const removeCategory = async (req, res, next) => {
     next();
   }
 };
+export const getCategoryProduct = async (req, res, next) => {
+  function paginateProducts(products, page, limit) {
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    // Lấy các sản phẩm trong phạm vi trang hiện tại
+    return products.slice(startIndex, endIndex);
+  }
+  try {
+    const { id } = req.params;
+    const { page = 1, limit = 10 } = req.query;
+    const category = await Category.findById(id).populate("products");
+    if (!category) {
+      return res.status(404).json({ message: "Không tìm thấy danh mục" });
+    }
+
+    // Phân trang sản phẩm
+    const paginatedProducts = paginateProducts(
+      category.products,
+      parseInt(page),
+      parseInt(limit)
+    );
+
+    res.json({
+      products: paginatedProducts,
+      totalProducts: category.products.length,
+      currentPage: parseInt(page),
+      totalPages: Math.ceil(category.products.length / limit),
+    });
+  } catch (error) {
+    next(error);
+  }
+};

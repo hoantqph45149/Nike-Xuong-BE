@@ -6,12 +6,14 @@ import {
   createCategory,
   updateCategory,
   removeCategory,
+  getCategoryProduct,
 } from "../controllers/categories.js";
 import { validBodyRequest } from "../middlewares/validBodyRequest.js";
 import { categoryValidation } from "../validations/category.js";
 
 const routerCategory = express.Router();
 routerCategory.get("/", getAllCategory);
+routerCategory.get("/:id/products", getCategoryProduct);
 routerCategory.get("/:id", getOneCategory);
 routerCategory.post(
   "/",

@@ -2,8 +2,19 @@ import Category from "../models/Category.js";
 import Products from "../models/Product.js";
 
 export const getList = async (req, res, next) => {
+  const { page = 1, limit = 10, sort = "name", order = "asc" } = req.query;
   try {
-    const data = await Products.find().populate("categoryId");
+    const skip = (page - 1) * limit;
+
+    // Xác định thứ tự sắp xếp: 1 là tăng dần, -1 là giảm dần
+    const sortOrder = order === "desc" ? -1 : 1;
+    const data = await Products.find()
+      .sort({ [sort]: sortOrder }) // Sắp xếp dựa trên trường 'sort' và 'order'
+      .skip(skip)
+      .limit(parseInt(limit))
+      .populate("categoryId");
+
+    const totalProducts = await Products.countDocuments();
     if (!data || data.length === 0) {
       return res.status(400).json({
         message: "Khong tim thay san pham nao!",
@@ -13,6 +24,9 @@ export const getList = async (req, res, next) => {
     return res.status(200).json({
       message: "Lay san pham thanh cong!",
       data,
+      totalProducts,
+      totalPages: Math.ceil(totalProducts / limit),
+      currentPage: page,
     });
   } catch (error) {
     next(error);
