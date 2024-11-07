@@ -2,6 +2,7 @@ import Cart from "../models/Cart.js";
 import Product from "./../models/Product.js";
 export const addToCart = async (req, res, next) => {
   try {
+    // console.log(req.body);
     const { productId, quantity, size } = req.body;
     const product = await Product.findById(productId);
     if (!product) {
@@ -12,7 +13,6 @@ export const addToCart = async (req, res, next) => {
     if (!cart) {
       cart = new Cart({ userId: req.user._id, products: [], totalAmount: 0 });
     }
-
     const findIndex = cart.products.findIndex(
       (p) => p.product.toString() === productId.toString() && p.size === size
     );
@@ -32,12 +32,11 @@ export const addToCart = async (req, res, next) => {
     const updatedCart = await Cart.findOne({ userId: req.user._id })
       .populate("products.product")
       .exec();
-
+    console.log(updatedCart);
     const populatedProduct = updatedCart.products.find(
       (p) =>
         p.product._id.toString() === productId.toString() && p.size === size
     );
-
     res.json(populatedProduct);
   } catch (error) {
     next(error);

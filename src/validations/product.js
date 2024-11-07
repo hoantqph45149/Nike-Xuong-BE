@@ -25,4 +25,10 @@ export const productValidation = Joi.object({
   categoryId: Joi.string().required().messages({
     "string.empty": "Vui lòng nhập loai sản phẩm",
   }),
+  colors: Joi.array().messages({
+    "array.base": "colors là kiểu array",
+  }),
+  gender: Joi.string().messages({
+    "string.base": "gender là kiểu string",
+  }),
 });

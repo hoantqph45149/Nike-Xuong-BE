@@ -20,6 +20,12 @@ const productSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    colors: [{ color: { type: String, required: true } }],
+    gender: {
+      type: String,
+      enum: ["Man", "Woman", "Unisex"],
+      required: true,
+    },
     sizes: [
       {
         size: {

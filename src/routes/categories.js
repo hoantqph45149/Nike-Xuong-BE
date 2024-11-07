@@ -1,15 +1,15 @@
 import express from "express";
-import { checkPermission } from "./../middlewares/checkPermission.js";
 import {
-  getAllCategory,
-  getOneCategory,
   createCategory,
-  updateCategory,
-  removeCategory,
+  getAllCategory,
   getCategoryProduct,
+  getOneCategory,
+  removeCategory,
+  updateCategory,
 } from "../controllers/categories.js";
 import { validBodyRequest } from "../middlewares/validBodyRequest.js";
 import { categoryValidation } from "../validations/category.js";
+import { checkPermission } from "./../middlewares/checkPermission.js";
 
 const routerCategory = express.Router();
 routerCategory.get("/", getAllCategory);
